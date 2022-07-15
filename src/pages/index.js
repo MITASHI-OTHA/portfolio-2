@@ -1,183 +1,232 @@
 import * as React from "react"
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import '../css/style.css';
+import Paper from '@mui/material/Paper';
+import { StaticImage } from "gatsby-plugin-image"
+import Chip from '@mui/material/Chip';
+import { Icon } from '@iconify/react';
+import Button from '@mui/material/Button';
+import { purple, red } from '@mui/material/colors';
 
-// styles
-const pageStyles = {
-  color: "#232129",
-  padding: 96,
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-}
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
-const headingAccentStyles = {
-  color: "#663399",
-}
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
-const listStyles = {
-  marginBottom: 96,
-  paddingLeft: 0,
-}
-const listItemStyles = {
-  fontWeight: 300,
-  fontSize: 24,
-  maxWidth: 560,
-  marginBottom: 30,
-}
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
-const linkStyle = {
-  color: "#8954A8",
-  fontWeight: "bold",
-  fontSize: 16,
-  verticalAlign: "5%",
-}
+const ListItem = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+  listStyle: 'none'
+}));
 
-const docLinkStyle = {
-  ...linkStyle,
-  listStyleType: "none",
-  marginBottom: 24,
-}
+const socialLink =  [
+      {
+        key: 0,
+        label: 'Facebook',
+        link: '',
+        logo: <Icon icon="bxl:facebook"/>
+      },
+      {
+        key: 1,
+        label: 'Twitter',
+        link: '',
+        logo: <Icon icon="bytesize:twitter"/>
+      },
+      {
+        key: 2,
+        label: 'Instagram',
+        link: '',
+        logo: <Icon icon="bxl:instagram"/>
+      },
+      {
+        key: 3,
+        label: 'LinkedIn',
+        link: '',
+        logo: <Icon icon="bxl:linkedin"/>
+      }
+    ];
 
-const descriptionStyle = {
-  color: "#232129",
-  fontSize: 14,
-  marginTop: 10,
-  marginBottom: 0,
-  lineHeight: 1.25,
-}
+    const Contacts = [
+        {
+          key: 0,
+          label: 'Téléphone',
+          data: '+33 769096108',
+          color: '#dc2968',
+          logo: <Icon className="fs-16" icon="bi:phone" style={{color: "#dc2968"}} />
+        },
+        {
+          key: 1,
+          label: 'Email',
+          data: 'yahanthony8@gmail.com',
+          color: '#ffa700',
+          logo: <Icon className="fs-16" icon="ci:mail" style={{color: "#ffa700"}} />
+        },
+        {
+          key: 3,
+          label: 'Localisation',
+          data: 'Marseille (13)',
+          color: '#ff008f',
+          logo: <Icon className="fs-16" icon="bxs:map" style={{color: "#ff008f"}}/>
+        },
+        {
+          key: 4,
+          label: 'Signe astrologique',
+          data: 'Belier',
+          logo:  <Icon className="fs-16" icon="noto:ram"/>
+        }
+    ];
 
-const docLink = {
-  text: "Documentation",
-  url: "https://www.gatsbyjs.com/docs/",
-  color: "#8954A8",
-}
-
-const badgeStyle = {
-  color: "#fff",
-  backgroundColor: "#088413",
-  border: "1px solid #088413",
-  fontSize: 11,
-  fontWeight: "bold",
-  letterSpacing: 1,
-  borderRadius: 4,
-  padding: "4px 6px",
-  display: "inline-block",
-  position: "relative",
-  top: -2,
-  marginLeft: 10,
-  lineHeight: 1,
-}
-
-// data
-const links = [
+const NavItems = [
   {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial/",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-    color: "#E95800",
+    key: 0,
+    label: 'A propos',
+    icon: <Icon style={{fontSize: '20px'}} icon="charm:person" />,
+    link: ''
   },
   {
-    text: "How to Guides",
-    url: "https://www.gatsbyjs.com/docs/how-to/",
-    description:
-      "Practical step-by-step guides to help you achieve a specific goal. Most useful when you're trying to get something done.",
-    color: "#1099A8",
+    key: 1,
+    label: 'Cv',
+    icon: <Icon style={{fontSize: '20px'}} icon="akar-icons:file" />,
+    link: ''
   },
   {
-    text: "Reference Guides",
-    url: "https://www.gatsbyjs.com/docs/reference/",
-    description:
-      "Nitty-gritty technical descriptions of how Gatsby works. Most useful when you need detailed information about Gatsby's APIs.",
-    color: "#BC027F",
+    key: 2,
+    label: 'Projets',
+    icon: <Icon style={{fontSize: '20px'}} icon="fa6-solid:cube" />,
+    link: ''
   },
   {
-    text: "Conceptual Guides",
-    url: "https://www.gatsbyjs.com/docs/conceptual/",
-    description:
-      "Big-picture explanations of higher-level Gatsby concepts. Most useful for building understanding of a particular topic.",
-    color: "#0D96F2",
+    key: 3,
+    label: 'Blogs',
+    icon: <Icon style={{fontSize: '20px'}} icon="brandico:blogger-rect" />,
+    link: ''
   },
   {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-    color: "#8EB814",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    badge: true,
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-    color: "#663399",
-  },
+    key: 4,
+    label: 'Contact',
+    icon: <Icon style={{fontSize: '20px'}} icon="fa:address-book-o" />,
+    link: ''
+  }
 ]
+
+const CustomedButton = styled(Button)(({ theme }) => ({
+      color: theme.palette.getContrastText(red[500]),
+      backgroundColor: red[500],
+      '&:hover': {
+        backgroundColor: red[700],
+      },
+}));
 
 // markup
 const IndexPage = () => {
   return (
-    <main style={pageStyles}>
-      <title>Home Page</title>
-      <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! </span>
-        <span role="img" aria-label="Party popper emojis">
-          🎉🎉🎉
-        </span>
-      </h1>
-      <p style={paragraphStyles}>
-        Edit <code style={codeStyles}>src/pages/index.js</code> to see this page
-        update in real-time.{" "}
-        <span role="img" aria-label="Sunglasses smiley emoji">
-          😎
-        </span>
-      </p>
-      <ul style={listStyles}>
-        <li style={docLinkStyle}>
-          <a
-            style={linkStyle}
-            href={`${docLink.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-          >
-            {docLink.text}
-          </a>
-        </li>
-        {links.map(link => (
-          <li key={link.url} style={{ ...listItemStyles, color: link.color }}>
-            <span>
-              <a
-                style={linkStyle}
-                href={`${link.url}?utm_source=starter&utm_medium=start-page&utm_campaign=minimal-starter`}
-              >
-                {link.text}
-              </a>
-              {link.badge && (
-                <span style={badgeStyle} aria-label="New Badge">
-                  NEW!
-                </span>
-              )}
-              <p style={descriptionStyle}>{link.description}</p>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <img
-        alt="Gatsby G Logo"
-        src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-      />
-    </main>
+    <React.Fragment>
+      <CssBaseline />
+      <Container className="mycontainer" style={{height: '100%', 'width': '100%'}}>
+        <Stack
+          direction={{ xs: 'row', sm: 'row' }}
+          spacing={{ xs: 1, sm: 2, md: 4 }}
+          alignItems="center"
+          className="h-100"
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <Item style={{paddingBottom: "3ex"}}>
+                <Stack direction={{ xs: "column"}}>
+                      <Stack direction={{xs: "row"}} alignItems="center" justifyContent="center">
+                          <div className="position-relative">
+                              <Stack className="position-absolute left-0 right-0 bottom-0" justifyContent="center" alignItems="center" style={{top: '-38px'}}>
+                                <Item className="p-0 round">
+                                <StaticImage className="round" src="../images/mitch.jpg" alt="MITASHI OTHA" placeholder="blurred" layout="fixed" width={150} height={150}/>
+                                </Item>
+                              </Stack>
+                          </div>
+                      </Stack>
+                      <Stack direction="column" alignItems="center" justifyContent="center" className="mt-5">
+                        <h1 className="fs-18 text-black">
+                          MITASHI OTHA Anthony
+                        </h1>
+                        <Chip label="Développeur web fullstack"/>
+                        <div style={{display: 'flex', gap: '5px', marginTop: '1rem'}}>
+                            {
+                              socialLink.map(item=> {
+                                return <ListItem key={item.key}>
+                                      <Item className="d-flex align-items-center justify-content-center">
+                                          {item.logo}
+                                      </Item>
+                                </ListItem>
+                              })
+                            }
+                        </div>
+                      </Stack>
+                        <Item style={{marginTop: '3ex', marginLeft: '3ex', marginRight: '3ex'}}>
+                          <Stack direction="column" gap="15px">
+                              {
+                                Contacts.map(item=> {
+                                  return <ListItem key={item.key}>
+                                      <Stack direction="row" gap="15px">
+                                          <Item className="d-flex align-items-center justify-content-center h-30">
+                                                {
+                                                  item.logo
+                                                }
+                                          </Item>
+                                          <Stack direction="column" alignItems="baseline">
+                                              <small> {item.label} </small>
+                                              <span> {item.data} </span>
+                                          </Stack>
+                                      </Stack>
+                                  </ListItem>
+                                })
+                              }
+                          </Stack>
+                        </Item>
+                        <Stack justifyContent="center" style={{marginTop: '3ex'}}>
+                            <div>
+                              <CustomedButton alignItems="center" variant="contained" style={{gap: '5px'}}> 
+                                <Icon icon="fa:download" /> 
+                                <span>Télécharger mon cv</span>
+                              </CustomedButton>
+                            </div>
+                        </Stack>
+                </Stack>
+              </Item>
+              
+            </Grid>
+            <Grid item xs={8}>
+              <Item style={{padding: '3ex'}}>
+                  <Stack direction="row" justifyContent="end">
+                      {
+                        NavItems.map(item=> {
+                          return <ListItem>
+                              <Item style={{width: '90px'}}>
+                                  <Stack direction="column" alignItems="center" justifyContent="center">
+                                    <span> {item.icon} </span>
+                                    <span style={{marginTop: "3px"}}> {item.label} </span> 
+                                  </Stack>
+                              </Item>
+                          </ListItem>
+                        })
+                      }
+                  </Stack>
+              </Item>
+              <Item style={{marginTop: "3ex", padding: '3ex'}}>
+                      <Stack direction="row" alignItems="center">
+                         <h1 className="fw-bold text-black"> curriculum vitae </h1>
+                         <div style={{marginLeft: '3ex'}} id="ruban"></div>
+                      </Stack>
+              </Item>
+            </Grid>
+          </Grid>
+        </Stack>
+      </Container>
+    </React.Fragment>
   )
 }
 

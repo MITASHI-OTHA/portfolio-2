@@ -3,10 +3,13 @@ module.exports = {
     title: `portfolio`,
     siteUrl: `https://www.yourdomain.tld`
   },
-  plugins: ["gatsby-plugin-styled-components", {
+  plugins: ["gatsby-plugin-styled-components",
+  `gatsby-plugin-image`,
+  `gatsby-plugin-sharp`,
+  `gatsby-transformer-sharp`, {
     resolve: 'gatsby-plugin-google-analytics',
     options: {
-      "trackingId": ""
+      "trackingId": "243307602"
     }
   }, "gatsby-plugin-image", "gatsby-plugin-react-helmet", "gatsby-plugin-sitemap", {
     resolve: 'gatsby-plugin-manifest',
@@ -20,7 +23,14 @@ module.exports = {
       "path": "./src/images/"
     },
     __key: "images"
-  }, {
+  }, 
+  {
+    resolve: `gatsby-plugin-material-ui`,
+      options: {
+       // pathToEmotionCacheProps: `src/emotion-cache-props`,
+      },
+  },
+  {
     resolve: 'gatsby-source-filesystem',
     options: {
       "name": "pages",
